@@ -96,3 +96,29 @@ class EventBus {
     this.eventsMap[name].forEach((fn) => fn(...args))
   }
 }
+
+// 看代码答题
+function foo() {
+  console.log(this.a)
+}
+
+var obj = {
+  a: 2,
+  foo: foo,
+}
+var bar = obj.foo
+var a = 1
+bar() // 1
+// 原因：普通函数的this是在执行时确定的
+
+//看代码答题
+function foo() {
+  console.log(this.a)
+}
+function doFoo(fn) {
+  fn()
+}
+var obj = { a: 2, foo: foo }
+var a = 1
+doFoo(obj.foo)
+// 原因：普通函数的this是在执行时确定的
