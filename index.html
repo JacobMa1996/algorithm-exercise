@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        {{auth}}
+        <div class="test">{{auth}}</div>
+        <!-- <p v-text="auth"></p> -->
+        <ul>
+            <li>{{auth}}</li>
+            <li>
+                <h1>{{auth}}</h1>
+            </li>
+            <li>
+                <p>{{auth}}</p>
+            </li>
+        </ul>
+        <!-- <input type="text" v-model="auth" /> -->
+    </div>
+    <script src="./手写笔记/Vue.js"></script>
+
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                auth: 'Mirai 白'
+            }
+        })
+
+        window.vm = vm
+        console.log(vm)
+
+        setTimeout(() => {
+            vm.auth = '哈哈哈哈哈哈'
+        }, 1000)
+    </script>
+</body>
+
+</html>
