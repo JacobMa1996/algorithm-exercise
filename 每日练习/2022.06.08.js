@@ -120,5 +120,5 @@ function doFoo(fn) {
 }
 var obj = { a: 2, foo: foo }
 var a = 1
-doFoo(obj.foo)
+doFoo(obj.foo) // 1
 // 原因：普通函数的this是在执行时确定的

@@ -9,7 +9,7 @@ Function.prototype.bind = function (context) {
   const F = function () {
     return self.apply(
       this instanceof self ? this : context,
-      args.concat(...arguments)
+      args.concat(...arguments),
     )
   }
   F.prototype = self.prototype
