@@ -21,8 +21,8 @@ function B() {
 }
 
 function clone() {
-  A.prototype = Object.create(B.prototype)
-  A.prototype.constructor = A
+  B.prototype = Object.create(A.prototype)
+  B.prototype.constructor = B
 }
 
 // Object.create
