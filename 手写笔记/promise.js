@@ -13,7 +13,7 @@ let resolvePromise = (promise2, x, resolve, reject) => {
                     (y) => {
                         if (called) return;
                         called = true;
-                        resolvePromise(promise2, x, resolve, reject);
+                        resolvePromise(promise2, y, resolve, reject);
                     },
                     (r) => {
                         if (called) return;
@@ -86,15 +86,15 @@ MyPromise.prototype.then = function (onFulfilled, onRejected) {
         typeof onRejected == "function"
             ? onRejected
             : (e) => {
-                  throw e;
-              };
+                throw e;
+            };
 
     let promise2 = new MyPromise((resolve, reject) => {
         if (this.status === this.FULFILLED) {
             setTimeout(() => {
                 try {
                     let x = onFulfilled(this.value);
-                    resolvePromise(x);
+                    resolvePromise(promise2, x, resolve, reject);
                 } catch (e) {
                     reject(e);
                 }
@@ -117,7 +117,7 @@ MyPromise.prototype.then = function (onFulfilled, onRejected) {
                 setTimeout(() => {
                     try {
                         let x = onFulfilled(this.value);
-                        resolvePromise(x);
+                        resolvePromise(promise2, x, resolve, reject);
                     } catch (e) {
                         reject(e);
                     }
