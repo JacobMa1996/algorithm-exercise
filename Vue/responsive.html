@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        hello
+        <div>{{ a }}</div>
+        <!-- <div>{{ a + b }}</div> -->
+        <!-- <div>{{ a }}</div> -->
+        <div>{{ b }}</div>
+        <div>{{ c }}</div>
+
+        <!-- <div>
+            <child :title="a"></child>
+        </div> -->
+    </div>
+    <script>
+        const comp = Vue.component('child', {
+            props: ['title'],
+            template: '<div>child:{{title}}</div>'
+        })
+        var app = new Vue({
+            el: '#app',
+            components: {
+                comp
+            },
+            data: {
+                a: 'a',
+                b: 'b'
+            },
+            computed: {
+                c() {
+                    return this.a + this.b
+                }
+            },
+            mounted() {
+                console.log(this)
+            }
+        })
+
+        console.log(app)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+
+        <hoc :title="111">222</hoc>
+
+    </div>
+    <script>
+        function wrapped(WrappedComponent) {
+            return {
+                mounted() {
+                    console.log('wrapped')
+                },
+                props: {
+                    a: Number,
+                    ...WrappedComponent.props
+                }, // 显示声明WrappedComponent的props
+                render(h) {
+                    let slots
+                    if (Object.keys(this.$slots)?.length) {
+                        slots = Object.keys(this.$slots).reduce((arr, key) => {
+                            return arr.concat(this.$slots[key], [])
+                        }, []).map(vnode => {
+                            vnode.context = this._self // 手动更正vnode的context，否则具名插槽会失效
+                        })
+                    }
+
+                    return h(WrappedComponent, {
+                        on: this.$listeners,
+                        props: this.$props,
+                        scopedSlots: this.$scopedSlots,
+                        attrs: this.$attrs
+                    }, slots)
+                }
+            }
+        }
+
+        const baseComponent = Vue.component('child', {
+            props: ['title'],
+            template: '<div>child:{{title}}<slot /></div>'
+        })
+
+        var app = new Vue({
+            el: '#app',
+            components: {
+                hoc: wrapped(baseComponent)
+            },
+        })
+    </script>
+</body>
+
+</html>

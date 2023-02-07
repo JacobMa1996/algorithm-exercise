@@ -126,6 +126,7 @@ class Compile {
 
             node.textContent = value.replace(reg, this.vm[key])
 
+            // 这里做个简单的，实际是需要先编译成AST，再调用render函数，render函数里会new Watcher
             new Watcher(this.vm, key, (newValue) => {
                 node.textContent = newValue
             })
